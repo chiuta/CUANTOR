@@ -2,6 +2,8 @@ name: release
 on:
   push:
     tags: ["v*"]
+    branches: [main]
+    paths: ["Cargo.toml"]
   workflow_dispatch:
 
 permissions:
@@ -20,6 +22,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v5
+      - id: ver
+        shell: bash
+        run: echo "tag=v$(grep -m1 '^version' Cargo.toml | cut -d'"' -f2)" >> "$GITHUB_OUTPUT"
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
       - if: startsWith(matrix.os, 'ubuntu')
@@ -29,7 +34,7 @@ jobs:
       - name: Package
         shell: bash
         run: |
-          d="cuantor-${{ github.ref_name }}-${{ matrix.name }}"
+          d="cuantor-${{ steps.ver.outputs.tag }}-${{ matrix.name }}"
           mkdir "$d"
           for b in cuantor cuantor-gui; do
             f=target/release/$b; [ -f "$f.exe" ] && f="$f.exe"; cp "$f" "$d/"
@@ -50,6 +55,8 @@ jobs:
     runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v5
+      - id: ver
+        run: echo "tag=v$(grep -m1 '^version' Cargo.toml | cut -d'"' -f2)" >> "$GITHUB_OUTPUT"
       - uses: actions/download-artifact@v5
         with:
           pattern: pkg-*
@@ -57,6 +64,9 @@ jobs:
           path: dist
       - uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ steps.ver.outputs.tag }}
+          target_commitish: ${{ github.sha }}
+          name: CUANTOR ${{ steps.ver.outputs.tag }}
           files: dist/*
           body_path: CHANGELOG.md
           generate_release_notes: false
