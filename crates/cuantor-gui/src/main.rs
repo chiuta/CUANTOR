@@ -905,7 +905,7 @@ impl App {
                 if let Some(a) = &self.analysis {
                     ui.small(format!("· {} ≈ {}", tr("memorie"), human_bytes(a.memory_bytes)));
                     if let Some(s) = a.support {
-                        ui.small(format!("· {s} amplitudini nenule"));
+                        ui.small(format!("· {s} {}", tr("amplitudini nenule")));
                     }
                 }
                 if self.busy {
