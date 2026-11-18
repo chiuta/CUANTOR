@@ -41,7 +41,7 @@ cargo test --workspace --release
 
 ## Quality and audit
 
-Version 0.2.0 went through an adversarial audit: 59 automated tests, including fuzzing of the parser, resource bombs (memory, recursion, nesting), NaN angles, cross-checks between the three engines, chi-square sampling tests, seed reproducibility and hostile REST responses. The audit found and fixed 7 defects (see the changelog).
+Version 0.2.1 went through an adversarial audit: 59 automated tests, including fuzzing of the parser, resource bombs (memory, recursion, nesting), NaN angles, cross-checks between the three engines, chi-square sampling tests, seed reproducibility and hostile REST responses. The audit found and fixed 7 defects (see the changelog).
 
 [Changelog](CHANGELOG.md)
 

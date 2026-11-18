@@ -41,7 +41,7 @@ cargo test --workspace --release
 
 ## Calitate și audit
 
-Versiunea 0.2.0 a trecut printr-un audit adversarial: 59 de teste automate, inclusiv fuzzing al parserului, bombe de resurse (memorie, recursie, imbricare), unghiuri NaN, verificări încrucișate între cele trei motoare, teste chi-pătrat ale eșantionării, reproductibilitate pe sămânță și răspunsuri REST ostile. Auditul a găsit și a reparat 7 defecte (vezi jurnalul de modificări).
+Versiunea 0.2.1 a trecut printr-un audit adversarial: 59 de teste automate, inclusiv fuzzing al parserului, bombe de resurse (memorie, recursie, imbricare), unghiuri NaN, verificări încrucișate între cele trei motoare, teste chi-pătrat ale eșantionării, reproductibilitate pe sămânță și răspunsuri REST ostile. Auditul a găsit și a reparat 7 defecte (vezi jurnalul de modificări).
 
 [Jurnal de modificări](CHANGELOG.ro.md)
 

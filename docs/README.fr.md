@@ -41,7 +41,7 @@ cargo test --workspace --release
 
 ## Qualité et audit
 
-La version 0.2.0 a subi un audit adversarial : 59 tests automatisés, dont du fuzzing de l'analyseur, des bombes de ressources (mémoire, récursion, imbrication), des angles NaN, des recoupements entre les trois moteurs, des tests du khi-deux de l'échantillonnage, la reproductibilité par graine et des réponses REST hostiles. L'audit a trouvé et corrigé 7 défauts (voir le journal des modifications).
+La version 0.2.1 a subi un audit adversarial : 59 tests automatisés, dont du fuzzing de l'analyseur, des bombes de ressources (mémoire, récursion, imbrication), des angles NaN, des recoupements entre les trois moteurs, des tests du khi-deux de l'échantillonnage, la reproductibilité par graine et des réponses REST hostiles. L'audit a trouvé et corrigé 7 défauts (voir le journal des modifications).
 
 [Journal des modifications](CHANGELOG.fr.md)
 

@@ -9,7 +9,7 @@ import html
 import os
 import sys
 
-VER = "0.2.0"
+VER = "0.2.1"
 TESTS = sys.argv[1] if len(sys.argv) > 1 else "59"
 LANGS = ["ro", "en", "fr", "de", "es", "it", "pt", "hu"]
 NAMES = {"ro": "Română", "en": "English", "fr": "Français", "de": "Deutsch", "es": "Español", "it": "Italiano", "pt": "Português", "hu": "Magyar"}
@@ -499,6 +499,8 @@ main{max-width:1040px;margin:0 auto;padding:0 20px 60px}
 h1{font-size:56px;line-height:1.05;margin:0 0 12px;letter-spacing:.04em}
 .lead{font-size:20px;color:#cfd3ea;margin:0 0 14px}.honest{color:var(--mute);margin:0 0 22px}
 .btn{display:inline-block;background:var(--pur);color:#fff;padding:12px 22px;border-radius:8px;text-decoration:none;font-weight:600}
+h2,h3{scroll-margin-top:120px}
+main{scroll-margin-top:120px}
 h2{font-size:28px;margin:56px 0 14px;border-bottom:1px solid #2c2c3a;padding-bottom:8px}
 ul{padding-left:20px}li{margin:8px 0}
 pre{background:var(--panel);border:1px solid #2c2c3a;border-radius:8px;padding:14px 16px;overflow:auto;font-size:14px}

@@ -41,7 +41,7 @@ cargo test --workspace --release
 
 ## Qualità e audit
 
-La versione 0.2.0 ha superato un audit avversariale: 59 test automatici, tra cui fuzzing del parser, bombe di risorse (memoria, ricorsione, annidamento), angoli NaN, verifiche incrociate tra i tre motori, test chi quadrato del campionamento, riproducibilità tramite seme e risposte REST ostili. L'audit ha trovato e corretto 7 difetti (vedi il registro delle modifiche).
+La versione 0.2.1 ha superato un audit avversariale: 59 test automatici, tra cui fuzzing del parser, bombe di risorse (memoria, ricorsione, annidamento), angoli NaN, verifiche incrociate tra i tre motori, test chi quadrato del campionamento, riproducibilità tramite seme e risposte REST ostili. L'audit ha trovato e corretto 7 difetti (vedi il registro delle modifiche).
 
 [Registro delle modifiche](CHANGELOG.it.md)
 

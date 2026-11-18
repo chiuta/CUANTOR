@@ -41,7 +41,7 @@ cargo test --workspace --release
 
 ## Minőség és audit
 
-A(z) 0.2.0 verzió ellenséges auditon esett át: 59 automatikus teszt, köztük az elemző fuzzolása, erőforrás-bombák (memória, rekurzió, egymásba ágyazás), NaN szögek, a három motor kereszt-ellenőrzése, a mintavétel khí-négyzet tesztjei, magérték-alapú reprodukálhatóság és ellenséges REST-válaszok. Az audit 7 hibát talált és javított ki (lásd a változásnaplót).
+A(z) 0.2.1 verzió ellenséges auditon esett át: 59 automatikus teszt, köztük az elemző fuzzolása, erőforrás-bombák (memória, rekurzió, egymásba ágyazás), NaN szögek, a három motor kereszt-ellenőrzése, a mintavétel khí-négyzet tesztjei, magérték-alapú reprodukálhatóság és ellenséges REST-válaszok. Az audit 7 hibát talált és javított ki (lásd a változásnaplót).
 
 [Változásnapló](CHANGELOG.hu.md)
 

@@ -105,6 +105,28 @@ fn rejects_dynamic_and_oversized() {
     assert!(transpile(&big, &Target { n_qubits: 5, coupling: &line(5), basis: Basis::Cx }).is_err());
 }
 
+
+/// Citește o cerere HTTP completă (antete + corp după Content-Length).
+fn read_request(s: &mut std::net::TcpStream) -> String {
+    let mut buf = vec![0u8; 65536];
+    let mut n = 0;
+    loop {
+        let k = s.read(&mut buf[n..]).unwrap_or(0);
+        if k == 0 {
+            break;
+        }
+        n += k;
+        let txt = String::from_utf8_lossy(&buf[..n]).to_string();
+        if let Some(i) = txt.find("\r\n\r\n") {
+            let cl = txt.to_lowercase().split("content-length:").nth(1).and_then(|r| r.trim_start().split("\r\n").next().and_then(|v| v.trim().parse::<usize>().ok())).unwrap_or(0);
+            if n >= i + 4 + cl {
+                break;
+            }
+        }
+    }
+    String::from_utf8_lossy(&buf[..n]).to_string()
+}
+
 /// Server HTTP minimal pentru simularea IAM + Runtime.
 fn mock() -> (String, std::thread::JoinHandle<Vec<String>>) {
     let l = TcpListener::bind("127.0.0.1:0").unwrap();
@@ -248,8 +270,7 @@ fn api_key_never_appears_in_errors() {
     let port = l.local_addr().unwrap().port();
     std::thread::spawn(move || {
         if let Ok((mut s, _)) = l.accept() {
-            let mut b = [0u8; 4096];
-            let _ = s.read(&mut b);
+            let _ = read_request(&mut s);
             let body = "{\"error\":\"bad key\"}";
             let _ = write!(s, "HTTP/1.1 401 Unauthorized\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{}", body.len(), body);
         }

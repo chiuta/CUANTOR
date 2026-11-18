@@ -41,7 +41,7 @@ cargo test --workspace --release
 
 ## Qualidade e auditoria
 
-A versão 0.2.0 passou por uma auditoria adversarial: 59 testes automáticos, incluindo fuzzing do analisador, bombas de recursos (memória, recursão, aninhamento), ângulos NaN, verificações cruzadas entre os três motores, testes de qui-quadrado da amostragem, reprodutibilidade por semente e respostas REST hostis. A auditoria encontrou e corrigiu 7 defeitos (veja o registo de alterações).
+A versão 0.2.1 passou por uma auditoria adversarial: 59 testes automáticos, incluindo fuzzing do analisador, bombas de recursos (memória, recursão, aninhamento), ângulos NaN, verificações cruzadas entre os três motores, testes de qui-quadrado da amostragem, reprodutibilidade por semente e respostas REST hostis. A auditoria encontrou e corrigiu 7 defeitos (veja o registo de alterações).
 
 [Registo de alterações](CHANGELOG.pt.md)
 
