@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CUANTOR — Un simulateur d&#x27;ordinateur quantique pour votre bureau : de 5 à 1000 q</title>
+<meta name="description" content="Un simulateur d&#x27;ordinateur quantique pour votre bureau : de 5 à 1000 qubits, avec une interface de type IBM Quantum Composer.">
+<link rel="alternate" hreflang="ro" href="../ro/"><link rel="alternate" hreflang="en" href="../en/"><link rel="alternate" hreflang="fr" href="../fr/"><link rel="alternate" hreflang="de" href="../de/"><link rel="alternate" hreflang="es" href="../es/"><link rel="alternate" hreflang="it" href="../it/"><link rel="alternate" hreflang="pt" href="../pt/"><link rel="alternate" hreflang="hu" href="../hu/"><link rel="alternate" hreflang="x-default" href="../en/">
+<style>
+:root{--bg:#16161d;--panel:#1e1e28;--ink:#e8e8f0;--mute:#9a9ab0;--acc:#8ab4ff;--pur:#8a3ffc;--red:#e84a27;--blue:#4d8dff;--crim:#b82a2a}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+a{color:var(--acc)}
+header{position:sticky;top:0;background:rgba(22,22,29,.92);backdrop-filter:blur(8px);border-bottom:1px solid #2c2c3a;z-index:5}
+.bar{max-width:1040px;margin:0 auto;padding:10px 20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.logo{font-weight:700;letter-spacing:.08em;color:var(--acc);text-decoration:none}
+nav a{color:var(--mute);text-decoration:none;margin-right:14px;font-size:15px}nav a:hover{color:var(--ink)}
+.langs{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.langs a{font-size:13px;padding:2px 8px;border:1px solid #33334a;border-radius:12px;color:var(--mute);text-decoration:none}
+.langs a.on{background:var(--pur);border-color:var(--pur);color:#fff}
+main{max-width:1040px;margin:0 auto;padding:0 20px 60px}
+.hero{padding:56px 0 24px;display:grid;grid-template-columns:1.05fr 1fr;gap:36px;align-items:center}
+@media(max-width:820px){.hero{grid-template-columns:1fr}}
+h1{font-size:56px;line-height:1.05;margin:0 0 12px;letter-spacing:.04em}
+.lead{font-size:20px;color:#cfd3ea;margin:0 0 14px}.honest{color:var(--mute);margin:0 0 22px}
+.btn{display:inline-block;background:var(--pur);color:#fff;padding:12px 22px;border-radius:8px;text-decoration:none;font-weight:600}
+h2{font-size:28px;margin:56px 0 14px;border-bottom:1px solid #2c2c3a;padding-bottom:8px}
+ul{padding-left:20px}li{margin:8px 0}
+pre{background:var(--panel);border:1px solid #2c2c3a;border-radius:8px;padding:14px 16px;overflow:auto;font-size:14px}
+.warn{border-left:4px solid var(--red);background:var(--panel);padding:12px 16px;border-radius:0 8px 8px 0;color:#dcdcee}
+footer{border-top:1px solid #2c2c3a;color:var(--mute);text-align:center;padding:26px 20px;font-size:14px}
+svg{width:100%;height:auto;background:var(--panel);border:1px solid #2c2c3a;border-radius:12px}
+</style></head><body>
+<header><div class="bar"><a class="logo" href="#top">CUANTOR</a><nav><a href="#features">Fonctions</a><a href="#limits">Limites</a><a href="#start">Démarrage rapide</a><a href="#ibm">IBM Quantum</a><a href="#quality">Qualité</a><a href="#download">Téléchargement</a></nav><div class="langs"><a href="../ro/" hreflang="ro" lang="ro">Română</a><a href="../en/" hreflang="en" lang="en">English</a><a href="../fr/" hreflang="fr" lang="fr" class=on aria-current=true>Français</a><a href="../de/" hreflang="de" lang="de">Deutsch</a><a href="../es/" hreflang="es" lang="es">Español</a><a href="../it/" hreflang="it" lang="it">Italiano</a><a href="../pt/" hreflang="pt" lang="pt">Português</a><a href="../hu/" hreflang="hu" lang="hu">Magyar</a></div></div></header>
+<main id="top">
+<section class="hero"><div><h1>CUANTOR</h1><p class="lead">Un simulateur d&#x27;ordinateur quantique pour votre bureau : de 5 à 1000 qubits, avec une interface de type IBM Quantum Composer.</p><p class="honest">C&#x27;est une simulation exacte exécutée sur votre propre ordinateur, pas un matériel quantique.</p><a class="btn dl" href="#download">Dernière version</a></div><svg viewBox="0 0 520 330" role="img" aria-label="CUANTOR Composer">
+<g font-family="system-ui,sans-serif" font-size="13" fill="#bfc3dc">
+<text x="14" y="52">q[0]</text><text x="14" y="94">q[1]</text><text x="14" y="136">q[2]</text><text x="14" y="178">q[3]</text></g>
+<g stroke="#5f6378" stroke-width="1.6"><line x1="52" x2="450" y1="48" y2="48"/><line x1="52" x2="450" y1="90" y2="90"/><line x1="52" x2="450" y1="132" y2="132"/><line x1="52" x2="450" y1="174" y2="174"/></g>
+<rect x="80" y="30" width="36" height="36" rx="4" fill="#e84a27"/><text x="98" y="54" fill="#fff" font-size="16" text-anchor="middle" font-family="system-ui">H</text>
+<line x1="190" x2="190" y1="48" y2="90" stroke="#9c8cff" stroke-width="2"/><circle cx="190" cy="48" r="6" fill="#9c8cff"/>
+<circle cx="190" cy="90" r="13" fill="#8a3ffc"/><path d="M183 90h14M190 83v14" stroke="#fff" stroke-width="2"/>
+<rect x="262" y="114" width="36" height="36" rx="4" fill="#4d8dff"/><text x="280" y="138" fill="#fff" font-size="15" text-anchor="middle" font-family="system-ui">T</text>
+<rect x="334" y="156" width="36" height="36" rx="4" fill="#b82a2a"/><text x="352" y="180" fill="#fff" font-size="13" text-anchor="middle" font-family="system-ui">√X</text>
+<g fill="#16161d" stroke="#d0d0e0" stroke-width="1.5"><circle cx="486" cy="48" r="13"/><circle cx="486" cy="90" r="13"/><circle cx="486" cy="132" r="13"/><circle cx="486" cy="174" r="13"/></g>
+<path d="M473 48a13 13 0 0 0 26 0z" fill="#4d8dff" transform="translate(0 0)"/><path d="M473 90a13 13 0 0 0 26 0z" fill="#4d8dff"/>
+<g stroke="#3c3c50"><line x1="40" x2="500" y1="230" y2="230"/></g>
+<rect x="150" y="238" width="30" height="64" fill="#339aff"/><rect x="330" y="238" width="30" height="64" fill="#339aff"/>
+<g font-family="ui-monospace,monospace" font-size="12" fill="#9a9ab0" text-anchor="middle"><text x="165" y="318">00</text><text x="345" y="318">11</text></g>
+<g font-family="system-ui" font-size="12" fill="#d8dcf2" text-anchor="middle"><text x="165" y="234">50</text><text x="345" y="234">50</text></g>
+<circle cx="430" cy="270" r="30" fill="none" stroke="#6a6a88"/>
+<g stroke-width="5" fill="none"><path d="M430 240a30 30 0 0 1 30 30" stroke="#d94bd6"/><path d="M460 270a30 30 0 0 1-30 30" stroke="#f0c24b"/><path d="M430 300a30 30 0 0 1-30-30" stroke="#5be08a"/><path d="M400 270a30 30 0 0 1 30-30" stroke="#6a6cff"/></g>
+</svg></section>
+<h2 id="features">Ce que fait le programme</h2><ul><li>Éditeur de style Composer : palette de portes colorées, fils q[0..n], cadrans de mesure par qubit, histogramme des probabilités, sphère Q avec anneau de phase, code OpenQASM 3.0 / 2.0 / Qiskit en direct.</li><li>Trois moteurs exacts : vecteur d&#x27;état (jusqu&#x27;à 28 qubits), stabilisateur pour les circuits Clifford (jusqu&#x27;à 4096 qubits), amplitudes creuses pour les circuits à peu de branches.</li><li>Circuits dynamiques (mesure en cours de circuit, reset, if), portes définies par l&#x27;utilisateur, bruit de dépolarisation et de lecture, graines reproductibles.</li><li>Import OpenQASM 2.0 et 3.0, export OpenQASM 3.0 et Qiskit.</li><li>Lien avec IBM Quantum : ouvrez les circuits dans IBM Composer ou exécutez-les sur du matériel IBM réel via l&#x27;API REST Runtime, avec votre propre clé.</li><li>Interface en 8 langues : roumain, anglais, français, allemand, espagnol, italien, portugais, hongrois.</li><li>Windows, macOS et Linux ; un seul espace de travail Rust : noyau, interface graphique, CLI, client IBM.</li></ul>
+<h2 id="limits">Limites physiques</h2><p>Un état général de n qubits exige 2^n amplitudes : 24 qubits occupent environ 256 Mio, 28 qubits environ 4 Gio. Au-delà, seuls les circuits structurés fonctionnent (Clifford, états de type GHZ, peu de branches de superposition). Un état GHZ de 1000 qubits s&#x27;exécute instantanément ; un circuit arbitraire de 1000 qubits est mathématiquement hors de portée de toute machine classique.</p>
+<h2 id="start">Démarrage rapide</h2><p>Compilez depuis les sources avec une chaîne d&#x27;outils Rust récente :</p><pre>git clone &lt;repo-url&gt; cuantor &amp;&amp; cd cuantor
+cargo run --release -p cuantor-gui
+cargo run --release -p cuantor-cli -- example Bell
+cargo run --release -p cuantor-cli -- ghz 1000 --shots 8
+cargo test --workspace --release</pre>
+<h2 id="ibm">IBM Quantum (quantum.cloud.ibm.com)</h2><ul><li>Composer : le menu Fichier → « Ouvrir dans IBM Composer » enregistre un fichier .qasm ; dans Composer, utilisez File → Upload .qasm file.</li><li>Matériel réel : définissez localement IBM_QUANTUM_API_KEY, IBM_QUANTUM_CRN et IBM_QUANTUM_BACKEND (ou ~/.config/cuantor/ibm.json), puis lancez `cuantor ibm run circuit.qasm --backend NOM`. La clé n&#x27;est jamais affichée, journalisée ni envoyée ailleurs qu&#x27;à IBM.</li></ul><p class="warn">Non vérifié sur du matériel réel : le transpileur (portes natives rz/sx/x + cx/cz/ecr, routage SWAP) est vérifié avec le simulateur intégré, et le client REST seulement avec un serveur factice. Les détails des requêtes peuvent nécessiter des ajustements ; les circuits dynamiques ne sont pas pris en charge sur cette voie.</p>
+<h2 id="quality">Qualité et audit</h2><p>La version 0.2.0 a subi un audit adversarial : 59 tests automatisés, dont du fuzzing de l&#x27;analyseur, des bombes de ressources (mémoire, récursion, imbrication), des angles NaN, des recoupements entre les trois moteurs, des tests du khi-deux de l&#x27;échantillonnage, la reproductibilité par graine et des réponses REST hostiles. L&#x27;audit a trouvé et corrigé 7 défauts (voir le journal des modifications).</p>
+<h3>Journal des modifications — 0.2.0</h3><p><b>Ajouté</b></p><ul><li>Interface en 8 langues (interface graphique avec sélecteur de langue, aide et erreurs de la CLI).</li><li>Suite de tests adversariaux : fuzzing de l&#x27;analyseur, bombes de ressources, recoupements entre moteurs, statistiques, réponses REST hostiles.</li><li>Intégration IBM Quantum : transpileur vers les portes natives avec routage, client REST Runtime, export vers Composer.</li><li>Site de présentation et documentation en 8 langues.</li></ul><p><b>Corrigé</b></p><ul><li>L&#x27;expansion exponentielle de portes définies par l&#x27;utilisateur pouvait allouer des gigaoctets et arrêter le processus ; l&#x27;expansion est désormais bornée.</li><li>Des expressions profondément imbriquées provoquaient un débordement de pile et l&#x27;arrêt du processus ; la profondeur est limitée à 128.</li><li>Les résultats d&#x27;échantillonnage dépendaient du nombre de threads ; ils ne dépendent plus que de la graine.</li><li>L&#x27;interface lançait un nombre illimité de threads d&#x27;analyse lors de modifications rapides (mémoire épuisée à 4096 qubits) ; il y a maintenant un thread de travail et une requête en file.</li><li>Les probabilités de bruit invalides (supérieures à 1, négatives, NaN) étaient acceptées silencieusement ; elles sont maintenant rejetées.</li><li>La CLI ignorait silencieusement des options numériques invalides comme --shots abc et des moteurs inconnus ; ce sont maintenant des erreurs.</li><li>Plusieurs symboles manquaient dans la police par défaut et s&#x27;affichaient comme des cases vides ; ils sont remplacés par des étiquettes textuelles.</li></ul>
+<h2 id="download">Téléchargement</h2><p>Des binaires pour Windows, macOS (Apple silicon et Intel) et Linux sont joints à chaque version.</p><p><a class="btn dl" id="rel" href="#download">Dernière version</a></p>
+<h2>Licence</h2><p>Aucune licence n&#x27;a encore été définie (choix de l&#x27;auteur).</p>
+</main><footer>Créé avec Claude. Simulation uniquement : aucun avantage quantique n&#x27;est revendiqué.</footer>
+<script>
+(function(){var h=location.hostname,p=location.pathname.split('/').filter(Boolean);
+if(h.endsWith('.github.io')&&p.length){var u='https://github.com/'+h.split('.')[0]+'/'+p[0]+'/releases/latest';
+document.querySelectorAll('a.dl').forEach(function(a){if(a.id==='rel'||a.classList.contains('btn')){a.href=u}});}})();
+</script></body></html>

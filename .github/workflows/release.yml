@@ -1,0 +1,62 @@
+name: release
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-26.04, name: linux-x86_64, ext: tar.gz }
+          - { os: windows-latest, name: windows-x86_64, ext: zip }
+          - { os: macos-latest, name: macos-arm64, ext: tar.gz }
+          - { os: macos-15-intel, name: macos-x86_64, ext: tar.gz }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - if: startsWith(matrix.os, 'ubuntu')
+        run: sudo apt-get update && sudo apt-get install -y libxkbcommon-dev libx11-dev libxcursor-dev libxi-dev libxrandr-dev libgl1-mesa-dev
+      - run: cargo test --workspace --release
+      - run: cargo build --release -p cuantor-cli -p cuantor-gui
+      - name: Package
+        shell: bash
+        run: |
+          d="cuantor-${{ github.ref_name }}-${{ matrix.name }}"
+          mkdir "$d"
+          for b in cuantor cuantor-gui; do
+            f=target/release/$b; [ -f "$f.exe" ] && f="$f.exe"; cp "$f" "$d/"
+          done
+          cp README.md CHANGELOG.md "$d/"; cp -r docs "$d/docs"
+          if [ "${{ matrix.ext }}" = zip ]; then 7z a "$d.zip" "$d" >/dev/null; else tar czf "$d.tar.gz" "$d"; fi
+          if command -v sha256sum >/dev/null; then sha256sum "$d.${{ matrix.ext }}" > "$d.${{ matrix.ext }}.sha256"; else shasum -a 256 "$d.${{ matrix.ext }}" > "$d.${{ matrix.ext }}.sha256"; fi
+      - uses: actions/upload-artifact@v5
+        with:
+          name: pkg-${{ matrix.name }}
+          path: |
+            cuantor-*.zip
+            cuantor-*.tar.gz
+            cuantor-*.sha256
+
+  publish:
+    needs: build
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/download-artifact@v5
+        with:
+          pattern: pkg-*
+          merge-multiple: true
+          path: dist
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          body_path: CHANGELOG.md
+          generate_release_notes: false

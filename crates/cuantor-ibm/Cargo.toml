@@ -1,0 +1,12 @@
+[package]
+name = "cuantor-ibm"
+description = "Conectare la IBM Quantum Platform (Runtime REST) + transpilare ISA"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+publish.workspace = true
+
+[dependencies]
+cuantor-core = { path = "../cuantor-core" }
+serde_json = "1"
+ureq = { version = "2", default-features = false, features = ["tls", "json"] }

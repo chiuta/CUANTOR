@@ -1,0 +1,10 @@
+[package]
+name = "cuantor-core"
+description = "CUANTOR: mașină virtuală cuantică (simulator statevector, OpenQASM 2.0, zgomot, măsurare dinamică)"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+publish.workspace = true
+
+[dependencies]
+getrandom = "0.3"
