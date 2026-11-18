@@ -1,3 +1,4 @@
+# CUANTOR workspace — versiunea se citește din [workspace.package]; schimbarea ei declanșează release-ul.
 [workspace]
 resolver = "2"
 members = ["crates/cuantor-core", "crates/cuantor-cli", "crates/cuantor-gui", "crates/cuantor-ibm"]

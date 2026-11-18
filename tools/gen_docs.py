@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# (declanșează publicarea paginii prin pages.yml)
 """Generează README-urile, CHANGELOG-urile și pagina de prezentare în 8 limbi dintr-o singură sursă.
 
 Rulare:  python3 tools/gen_docs.py [numar_teste]
