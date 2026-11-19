@@ -448,6 +448,16 @@ T["hu"] = dict(
     notes=["Valódi IBM hardveren nem ellenőrzött.", "Dinamikus áramkörök nem rajzolhatók meg a szerkesztőben és nem küldhetők IBM hardverre.", "A példák címei románul maradnak."],
 )
 
+from eli_page import P as _P
+
+for _l in LANGS:
+    T[_l].update(_P[_l])
+    T[_l]["q"] = T[_l]["q"].replace("{ver}", VER).replace("{tests}", TESTS)
+
+REPO = "chiuta/CUANTOR"
+RELEASES = f"https://github.com/{REPO}/releases/latest"
+PLATFORMS = [("windows", "Windows · .zip"), ("macos-arm64", "macOS · Apple · .tar.gz"), ("macos-x86_64", "macOS · Intel · .tar.gz"), ("linux", "Linux · .tar.gz")]
+
 CODE = """git clone <repo-url> cuantor && cd cuantor
 cargo run --release -p cuantor-gui
 cargo run --release -p cuantor-cli -- example Bell
@@ -465,11 +475,15 @@ def md_readme(l):
     out.append("[" + " · ".join(f"[{NAMES[x]}]({'README.md' if l == 'en' and x == 'en' else ('docs/README.%s.md' % x if l == 'en' else ('../README.md' if x == 'en' else 'README.%s.md' % x))})" for x in LANGS) + "]")
     out[-1] = " · ".join(f"[{NAMES[x]}]({('README.md' if x == 'en' else 'docs/README.%s.md' % x) if l == 'en' else ('../README.md' if x == 'en' else 'README.%s.md' % x)})" for x in LANGS)
     out.append("")
-    out += [f"## {t['h_feat']}", ""] + [f"- {x}" for x in t["feat"]] + ["", f"## {t['h_lim']}", "", t["lim"], "", f"## {t['h_start']}", "", t["start"], "", "```", CODE, "```", "", f"## {t['h_ibm']}", ""]
-    out += [f"- {x}" for x in t["ibm"]] + ["", f"> {t['ibm_warn']}", "", f"## {t['h_q']}", "", t["q"], ""]
+    E5 = t["eli5"]; lab = t["eli5_label"]
+    out += [f"> **{lab}:** {E5['hero']}", ""]
+    out += [f"## {t['h_feat']}", ""] + [f"- {x}" for x in t["feat"]] + ["", f"> **{lab}:** {E5['features']}", "", f"## {t['h_lim']}", "", t["lim"], "", f"> **{lab}:** {E5['limits']}", "", f"## {t['h_start']}", "", t["start"], "", "```", CODE, "```", "", f"> **{lab}:** {E5['start']}", "", f"## {t['h_ibm']}", ""]
+    out += [f"- {x}" for x in t["ibm"]] + ["", f"> {t['ibm_warn']}", "", f"> **{lab}:** {E5['ibm']}", "", f"## {t['h_q']}", "", t["q"], "", f"> **{lab}:** {E5['quality']}", ""]
+    gp = "docs/guide/" if l == "en" else "guide/"
+    out_dl = [f"**[{t['dl_btn']}]({RELEASES})**", ""] + [f"- {n}" for _, n in PLATFORMS] + ["", f"### {t['guide_h']}", "", t["guide_txt"], "", f"**[{t['guide_btn']}]({gp}CUANTOR-guide.{l}.pdf)** · {t['guide_all']} " + " · ".join(f"[{NAMES[x]}]({gp}CUANTOR-guide.{x}.pdf)" for x in LANGS), "", f"> **{lab}:** {E5['download']}", ""]
     cl = "CHANGELOG.md" if l == "en" else f"docs/CHANGELOG.{l}.md"
     cl = "CHANGELOG.md" if l == "en" else f"CHANGELOG.{l}.md"
-    out += [f"[{t['cl_title']}]({cl})", "", f"## {t['h_dl']}", "", t["dl"], "", f"## {t['h_lic']}", "", t["lic"], "", "---", t["foot"], ""]
+    out += [f"[{t['cl_title']}]({cl})", "", f"## {t['h_dl']}", "", t["dl"], ""] + out_dl + [f"## {t['h_lic']}", "", t["lic"], "", "---", t["foot"], ""]
     return "\n".join(out)
 
 
@@ -498,6 +512,7 @@ main{max-width:1040px;margin:0 auto;padding:0 20px 60px}
 @media(max-width:820px){.hero{grid-template-columns:1fr}}
 h1{font-size:56px;line-height:1.05;margin:0 0 12px;letter-spacing:.04em}
 .lead{font-size:20px;color:#cfd3ea;margin:0 0 14px}.honest{color:var(--mute);margin:0 0 22px}
+.btn.alt{background:transparent;border:1px solid var(--pur);color:var(--ink)}
 .btn{display:inline-block;background:var(--pur);color:#fff;padding:12px 22px;border-radius:8px;text-decoration:none;font-weight:600}
 h2,h3{scroll-margin-top:120px}
 main{scroll-margin-top:120px}
@@ -506,6 +521,11 @@ ul{padding-left:20px}li{margin:8px 0}
 pre{background:var(--panel);border:1px solid #2c2c3a;border-radius:8px;padding:14px 16px;overflow:auto;font-size:14px}
 .warn{border-left:4px solid var(--red);background:var(--panel);padding:12px 16px;border-radius:0 8px 8px 0;color:#dcdcee}
 footer{border-top:1px solid #2c2c3a;color:var(--mute);text-align:center;padding:26px 20px;font-size:14px}
+.eli5{background:#16281d;border:1px solid #2f7a4a;border-radius:10px;padding:10px 14px;margin:14px 0;color:#d5f5df}.eli5 b{color:#5be08a}
+.dlgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:16px 0}
+.dlgrid a{display:block;background:var(--panel);border:1px solid #33334a;border-radius:10px;padding:14px 16px;color:var(--ink);text-decoration:none;font-weight:600}.dlgrid a:hover{border-color:var(--pur)}
+.dlgrid small{display:block;color:var(--mute);font-weight:400;margin-top:2px}
+.glist a{margin-right:12px}
 svg{width:100%;height:auto;background:var(--panel);border:1px solid #2c2c3a;border-radius:12px}
 """
 
@@ -536,6 +556,10 @@ def page(l):
     nav = "".join(f'<a href="#{i}">{e(n)}</a>' for i, n in zip(nav_ids, t["nav"]))
     langs = "".join(f'<a href="../{x}/" hreflang="{x}" lang="{x}"{" class=on aria-current=true" if x == l else ""}>{NAMES[x]}</a>' for x in LANGS)
     alts = "".join(f'<link rel="alternate" hreflang="{x}" href="../{x}/">' for x in LANGS)
+    E5 = t["eli5"]
+    eli = lambda s: f'<p class="eli5"><b>{e(t["eli5_label"])}:</b> {e(s)}</p>'
+    plat = "".join(f'<a class="asset" data-k="{k}" href="{RELEASES}">{e(n)}<small>{e(t["rel_ver"])} <span class="v"></span></small></a>' for k, n in PLATFORMS)
+    guides = "".join(f'<a href="../guide/CUANTOR-guide.{x}.pdf">{NAMES[x]}</a>' for x in LANGS)
     return f"""<!doctype html>
 <html lang="{l}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CUANTOR — {e(t['tagline'][:70])}</title>
@@ -544,20 +568,28 @@ def page(l):
 <style>{CSS}</style></head><body>
 <header><div class="bar"><a class="logo" href="#top">CUANTOR</a><nav>{nav}</nav><div class="langs">{langs}</div></div></header>
 <main id="top">
-<section class="hero"><div><h1>CUANTOR</h1><p class="lead">{e(t['tagline'])}</p><p class="honest">{e(t['honest'])}</p><a class="btn dl" href="#download">{e(t['dl_btn'])}</a></div>{HERO_SVG}</section>
-<h2 id="features">{e(t['h_feat'])}</h2><ul>{"".join(f"<li>{e(x)}</li>" for x in t['feat'])}</ul>
-<h2 id="limits">{e(t['h_lim'])}</h2><p>{e(t['lim'])}</p>
-<h2 id="start">{e(t['h_start'])}</h2><p>{e(t['start'])}</p><pre>{e(CODE)}</pre>
-<h2 id="ibm">{e(t['h_ibm'])}</h2><ul>{"".join(f"<li>{e(x)}</li>" for x in t['ibm'])}</ul><p class="warn">{e(t['ibm_warn'])}</p>
-<h2 id="quality">{e(t['h_q'])}</h2><p>{e(t['q'])}</p>
+<section class="hero"><div><h1>CUANTOR</h1><p class="lead">{e(t['tagline'])}</p><p class="honest">{e(t['honest'])}</p><p class="eli5"><b>{e(t['eli5_label'])}:</b> {e(E5['hero'])}</p><a class="btn dl" href="{RELEASES}">{e(t['dl_btn'])}</a> <a class="btn alt" href="../guide/CUANTOR-guide.{l}.pdf">{e(t['guide_btn'])}</a></div>{HERO_SVG}</section>
+<h2 id="features">{e(t['h_feat'])}</h2><ul>{"".join(f"<li>{e(x)}</li>" for x in t['feat'])}</ul>{eli(E5['features'])}
+<h2 id="limits">{e(t['h_lim'])}</h2><p>{e(t['lim'])}</p>{eli(E5['limits'])}
+<h2 id="start">{e(t['h_start'])}</h2><p>{e(t['start'])}</p><pre>{e(CODE)}</pre>{eli(E5['start'])}
+<h2 id="ibm">{e(t['h_ibm'])}</h2><ul>{"".join(f"<li>{e(x)}</li>" for x in t['ibm'])}</ul><p class="warn">{e(t['ibm_warn'])}</p>{eli(E5['ibm'])}
+<h2 id="quality">{e(t['h_q'])}</h2><p>{e(t['q'])}</p>{eli(E5['quality'])}
 <h3>{e(t['cl_title'])} — {VER}</h3><p><b>{e(t['cl_added'])}</b></p><ul>{"".join(f"<li>{e(x)}</li>" for x in t['added'])}</ul><p><b>{e(t['cl_fixed'])}</b></p><ul>{"".join(f"<li>{e(x)}</li>" for x in t['fixed'])}</ul>
-<h2 id="download">{e(t['h_dl'])}</h2><p>{e(t['dl'])}</p><p><a class="btn dl" id="rel" href="#download">{e(t['dl_btn'])}</a></p>
+<h2 id="download">{e(t['h_dl'])}</h2><p>{e(t['dl'])}</p>
+<p><a class="btn dl" id="rel" href="{RELEASES}">{e(t['dl_btn'])} <span id="relver"></span></a></p>
+<div class="dlgrid">{plat}</div>
+<h3 id="guide">{e(t['guide_h'])}</h3><p>{e(t['guide_txt'])}</p>
+<p><a class="btn" href="../guide/CUANTOR-guide.{l}.pdf">{e(t['guide_btn'])}</a></p>
+<p class="glist">{e(t['guide_all'])} {guides}</p>{eli(E5['download'])}
 <h2>{e(t['h_lic'])}</h2><p>{e(t['lic'])}</p>
 </main><footer>{e(t['foot'])}</footer>
 <script>
-(function(){{var h=location.hostname,p=location.pathname.split('/').filter(Boolean);
-if(h.endsWith('.github.io')&&p.length){{var u='https://github.com/'+h.split('.')[0]+'/'+p[0]+'/releases/latest';
-document.querySelectorAll('a.dl').forEach(function(a){{if(a.id==='rel'||a.classList.contains('btn')){{a.href=u}}}});}}}})();
+(function(){{try{{fetch('https://api.github.com/repos/{REPO}/releases/latest',{{headers:{{Accept:'application/vnd.github+json'}}}}).then(function(r){{return r.ok?r.json():null}}).then(function(j){{
+if(!j||!j.assets)return;var v=(j.tag_name||'').replace(/^v/,'');
+var rv=document.getElementById('relver');if(rv)rv.textContent=v;
+document.querySelectorAll('a.asset').forEach(function(a){{var k=a.getAttribute('data-k');
+for(var i=0;i<j.assets.length;i++){{var n=j.assets[i].name;if(n.indexOf(k)>=0&&!/\\.sha256$/.test(n)){{a.href=j.assets[i].browser_download_url;a.querySelector('.v').textContent=v;break}}}}}});
+}}).catch(function(){{}})}}catch(e){{}}}})();
 </script></body></html>
 """
 

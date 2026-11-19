@@ -2,3 +2,4 @@ target/
 *.zip
 *.tar.gz
 .DS_Store
+__pycache__/

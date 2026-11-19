@@ -2,27 +2,33 @@
 
 > Un simulador de computador cuántico para tu escritorio: de 5 a 1000 cúbits, con una interfaz al estilo de IBM Quantum Composer.
 
-**Es una simulación exacta que se ejecuta en tu propio ordenador, no hardware cuántico.**
+**Es un ordenador cuántico de mentira dentro de tu ordenador: matemáticas exactas, pero no hardware cuántico real.**
 
 [Română](README.ro.md) · [English](../README.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Italiano](README.it.md) · [Português](README.pt.md) · [Magyar](README.hu.md)
 
+> **ELI5 — en una frase:** CUANTOR es un ordenador cuántico de juguete en tu pantalla. Pulsas bloques de colores, das a Ejecutar y ves la respuesta. Es de mentira, no el de verdad.
+
 ## Qué hace
 
-- Editor al estilo Composer: paleta de puertas de colores, hilos q[0..n], diales de medición por cúbit, histograma de probabilidades, esfera Q con anillo de fase y código OpenQASM 3.0 / 2.0 / Qiskit en vivo.
-- Tres motores exactos: vector de estado (hasta 28 cúbits), estabilizador para circuitos Clifford (hasta 4096 cúbits) y amplitudes dispersas para circuitos con pocas ramas.
-- Circuitos dinámicos (medición intermedia, reset, if), puertas definidas por el usuario, ruido de despolarización y de lectura, semillas reproducibles.
-- Importación de OpenQASM 2.0 y 3.0, exportación a OpenQASM 3.0 y Qiskit.
-- Enlace con IBM Quantum: abre los circuitos en IBM Composer o ejecútalos en hardware real de IBM mediante la API REST de Runtime, con tu propia clave.
-- Interfaz en 8 idiomas: rumano, inglés, francés, alemán, español, italiano, portugués, húngaro.
-- Windows, macOS y Linux; un único espacio de trabajo Rust: núcleo, GUI, CLI, cliente de IBM.
+- Una pizarra como el Composer de IBM: eliges bloques de colores (puertas), los pones en líneas (qubits) y barras y una bola muestran lo que pasa. Un panel de texto escribe en directo el mismo circuito en OpenQASM y Qiskit.
+- Tres calculadoras dentro: una que recuerda todos los números (hasta 28 qubits), una rapidísima para puertas simples (hasta 4096 qubits) y otra para circuitos con pocas ramas.
+- Puede decidir sobre la marcha (medición, reset, if). Puedes inventar tus puertas, añadir errores de mentira (ruido) y repetir cualquier resultado con una semilla (seed).
+- Lee archivos OpenQASM 2.0 y 3.0 y guarda OpenQASM 3.0 o Qiskit.
+- Habla con IBM Quantum: abre tu circuito en IBM Composer o envíalo a una máquina IBM real con la clave de tu cuenta.
+- Habla 8 idiomas: rumano, inglés, francés, alemán, español, italiano, portugués, húngaro.
+- Funciona en Windows, macOS y Linux. Dentro hay un solo proyecto Rust con cuatro partes: núcleo, ventana, línea de comandos y enlace con IBM.
+
+> **ELI5 — en una frase:** Bloques de colores, tres calculadoras, 8 idiomas, funciona en cualquier ordenador.
 
 ## Límites físicos
 
-Un estado general de n cúbits necesita 2^n amplitudes: 24 cúbits ocupan unos 256 MiB y 28 cúbits unos 4 GiB. Más allá solo funcionan los circuitos con estructura (Clifford, estados tipo GHZ, pocas ramas de superposición). Un GHZ de 1000 cúbits se ejecuta al instante; un circuito arbitrario de 1000 cúbits es matemáticamente inalcanzable para cualquier máquina clásica.
+Cada qubit extra duplica el trabajo, como un cuaderno donde cada qubit nuevo duplica las páginas. 24 qubits necesitan unos 256 MiB, 28 qubits unos 4 GiB. Más allá solo funcionan patrones simples. Un grupo de 1000 qubits todos de acuerdo (GHZ) corre al instante; un circuito cualquiera de 1000 qubits es imposible para cualquier ordenador normal.
+
+> **ELI5 — en una frase:** Más qubits, mucho más trabajo. Los patrones simples pueden ser enormes, los enredados no.
 
 ## Inicio rápido
 
-Compila desde el código fuente con una cadena de herramientas de Rust actual:
+Lo más fácil: descarga el programa (ver Descarga) y haz doble clic en cuantor-gui. Para compilarlo tú mismo con un Rust reciente:
 
 ```
 git clone <repo-url> cuantor && cd cuantor
@@ -32,22 +38,43 @@ cargo run --release -p cuantor-cli -- ghz 1000 --shots 8
 cargo test --workspace --release
 ```
 
+> **ELI5 — en una frase:** Descargas, doble clic en cuantor-gui y a jugar.
+
 ## IBM Quantum (quantum.cloud.ibm.com)
 
-- Composer: el menú Archivo → «Abrir en IBM Composer» guarda un archivo .qasm; en Composer usa File → Upload .qasm file.
-- Hardware real: define localmente IBM_QUANTUM_API_KEY, IBM_QUANTUM_CRN e IBM_QUANTUM_BACKEND (o ~/.config/cuantor/ibm.json) y ejecuta `cuantor ibm run circuit.qasm --backend NOMBRE`. La clave nunca se muestra, se registra ni se envía a otro sitio que no sea IBM.
+- Composer: en CUANTOR pulsa «Abrir en IBM Composer». Se guarda un archivo .qasm. En el Composer de IBM elige File → Upload .qasm file.
+- Una máquina real: pon tu clave de IBM, la instancia (CRN) y el nombre de la máquina en IBM_QUANTUM_API_KEY, IBM_QUANTUM_CRN e IBM_QUANTUM_BACKEND (o en ~/.config/cuantor/ibm.json) y ejecuta `cuantor ibm run circuit.qasm --backend NOMBRE`. La clave solo sale de tu ordenador hacia IBM.
 
-> No verificado en hardware real: el transpilador (puertas nativas rz/sx/x + cx/cz/ecr, enrutamiento SWAP) se verifica con el simulador integrado, y el cliente REST solo contra un servidor simulado. Los detalles de las solicitudes pueden requerir ajustes; los circuitos dinámicos no se admiten por esta vía.
+> Aviso sincero: esta parte aún no se ha probado en una máquina IBM real, solo en un servidor de mentira y con el simulador integrado. Pueden hacer falta pequeños arreglos. Los circuitos con reset o if no se pueden enviar.
+
+> **ELI5 — en una frase:** Puedes enviar tu circuito a la web de IBM o a una máquina IBM real. La máquina real aún no la hemos probado.
 
 ## Calidad y auditoría
 
-La versión 0.2.1 pasó por una auditoría adversarial: 59 pruebas automáticas, con fuzzing del analizador, bombas de recursos (memoria, recursión, anidamiento), ángulos NaN, contrastes entre los tres motores, pruebas de chi cuadrado del muestreo, reproducibilidad por semilla y respuestas REST hostiles. La auditoría encontró y corrigió 7 defectos (véase el registro de cambios).
+Antes de la versión 0.2.1 intentamos romper el programa por todos los medios: 59 pruebas automáticas, datos absurdos, circuitos hechos para comerse toda la memoria, ángulos imposibles, las tres calculadoras comparadas entre sí y respuestas falsas de IBM que mienten. Encontramos y arreglamos 7 errores (ver el registro de cambios).
+
+> **ELI5 — en una frase:** Intentamos romperlo, encontramos 7 errores y los arreglamos.
 
 [Registro de cambios](CHANGELOG.es.md)
 
 ## Descarga
 
-Cada versión incluye binarios para Windows, macOS (Apple silicon e Intel) y Linux.
+Los programas para Windows, macOS (chip Apple e Intel) y Linux van adjuntos a cada versión. Elige el tuyo abajo.
+
+**[Última versión](https://github.com/chiuta/CUANTOR/releases/latest)**
+
+- Windows · .zip
+- macOS · Apple · .tar.gz
+- macOS · Intel · .tar.gz
+- Linux · .tar.gz
+
+### Guía de uso (PDF)
+
+Explicada como para un niño de 10 años, con un mini resumen para uno de 5 años después de cada capítulo. La misma guía en 8 idiomas.
+
+**[Descargar la guía (PDF)](guide/CUANTOR-guide.es.pdf)** · Todos los idiomas: [Română](guide/CUANTOR-guide.ro.pdf) · [English](guide/CUANTOR-guide.en.pdf) · [Français](guide/CUANTOR-guide.fr.pdf) · [Deutsch](guide/CUANTOR-guide.de.pdf) · [Español](guide/CUANTOR-guide.es.pdf) · [Italiano](guide/CUANTOR-guide.it.pdf) · [Português](guide/CUANTOR-guide.pt.pdf) · [Magyar](guide/CUANTOR-guide.hu.pdf)
+
+> **ELI5 — en una frase:** Elige tu ordenador, descarga y listo. La guía es un PDF.
 
 ## Licencia
 

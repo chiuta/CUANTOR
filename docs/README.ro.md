@@ -2,27 +2,33 @@
 
 > Un simulator de computer cuantic pentru desktop: de la 5 la 1000 de qubiți, cu interfață în stilul IBM Quantum Composer.
 
-**Este o simulare exactă care rulează pe propriul tău calculator, nu hardware cuantic.**
+**E un calculator cuantic de jucărie în calculatorul tău: matematică exactă, dar nu hardware cuantic real.**
 
 [Română](README.ro.md) · [English](../README.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Italiano](README.it.md) · [Português](README.pt.md) · [Magyar](README.hu.md)
 
+> **ELI5 — pe scurt:** CUANTOR e un calculator cuantic de jucărie pe ecran. Apeși pe blocuri colorate, dai Rulează și vezi răspunsul. E doar de joacă, nu cel adevărat.
+
 ## Ce face
 
-- Editor în stil Composer: paletă de porți colorate, fire q[0..n], cadrane de măsurare pe fiecare qubit, histogramă de probabilități, Q-sferă cu inel de fază, panou de cod OpenQASM 3.0 / 2.0 / Qiskit în timp real.
-- Trei motoare exacte: vector de stare (până la 28 de qubiți), stabilizator pentru circuite Clifford (până la 4096 de qubiți), amplitudini rare pentru circuite cu puține ramuri.
-- Circuite dinamice (măsurare la mijloc, reset, if), porți definite de utilizator, zgomot de depolarizare și de citire, semințe reproductibile.
-- Import OpenQASM 2.0 și 3.0, export OpenQASM 3.0 și Qiskit.
-- Legătura cu IBM Quantum: deschide circuitele în IBM Composer sau rulează-le pe hardware IBM real prin API-ul REST Runtime, cu propria ta cheie.
-- Interfață în 8 limbi: română, engleză, franceză, germană, spaniolă, italiană, portugheză, maghiară.
-- Windows, macOS și Linux; un singur workspace Rust: nucleu, GUI, CLI, client IBM.
+- O planșetă de desen ca Composer-ul IBM: alegi blocuri colorate (porți), le pui pe linii (qubiți) și vezi bare și o minge care arată ce se întâmplă. Un panou de text scrie în direct același circuit în OpenQASM și Qiskit.
+- Trei calculatoare înăuntru: unul care ține minte fiecare număr (până la 28 de qubiți), unul foarte rapid pentru porți simple (până la 4096 de qubiți) și unul pentru circuite cu puține ramuri.
+- Poate decide pe parcurs (măsurare, reset, if). Îți poți inventa porți, poți adăuga greșeli prefăcute (zgomot) și poți repeta orice rezultat cu o sămânță (seed).
+- Citește fișiere OpenQASM 2.0 și 3.0 și salvează OpenQASM 3.0 sau Qiskit.
+- Vorbește cu IBM Quantum: deschizi circuitul în IBM Composer sau îl trimiți pe o mașină IBM reală, cu cheia contului tău.
+- Vorbește 8 limbi: română, engleză, franceză, germană, spaniolă, italiană, portugheză, maghiară.
+- Merge pe Windows, macOS și Linux. Înăuntru e un singur proiect Rust cu patru părți: nucleu, fereastră, linie de comandă și legătura cu IBM.
+
+> **ELI5 — pe scurt:** Blocuri colorate, trei calculatoare, 8 limbi, merge pe orice calculator.
 
 ## Limite fizice
 
-O stare generală de n qubiți cere 2^n amplitudini: 24 de qubiți ocupă circa 256 MiB, 28 de qubiți circa 4 GiB. Peste această limită merg doar circuitele cu structură (Clifford, stări de tip GHZ, puține ramuri de superpoziție). Un GHZ de 1000 de qubiți rulează instant; un circuit arbitrar de 1000 de qubiți este matematic inaccesibil oricărei mașini clasice.
+Fiecare qubit în plus dublează munca, ca un caiet în care fiecare qubit nou dublează paginile. 24 de qubiți cer cam 256 MiB, 28 cam 4 GiB. Dincolo de asta merg doar tiparele simple. Un grup de 1000 de qubiți care se pun toți de acord (GHZ) merge instant; un circuit oarecare pe 1000 de qubiți e imposibil pentru orice calculator obișnuit.
+
+> **ELI5 — pe scurt:** Mai mulți qubiți înseamnă mult mai multă muncă. Tiparele simple pot fi uriașe, cele încurcate nu.
 
 ## Pornire rapidă
 
-Compilează din sursă cu un toolchain Rust actual:
+Cel mai simplu: descarci programul (vezi Descărcare) și dai dublu clic pe cuantor-gui. Ca să-l construiești singur, cu un Rust recent:
 
 ```
 git clone <repo-url> cuantor && cd cuantor
@@ -32,22 +38,43 @@ cargo run --release -p cuantor-cli -- ghz 1000 --shots 8
 cargo test --workspace --release
 ```
 
+> **ELI5 — pe scurt:** Descarci, dai dublu clic pe cuantor-gui și te joci.
+
 ## IBM Quantum (quantum.cloud.ibm.com)
 
-- Composer: meniul Fișier → «Deschide în IBM Composer» salvează un fișier .qasm; în Composer folosește File → Upload .qasm file.
-- Hardware real: setează local IBM_QUANTUM_API_KEY, IBM_QUANTUM_CRN și IBM_QUANTUM_BACKEND (sau ~/.config/cuantor/ibm.json), apoi rulează `cuantor ibm run circuit.qasm --backend NUME`. Cheia nu este afișată, logată sau trimisă nicăieri în afară de IBM.
+- Composer: în CUANTOR apeși „Deschide în IBM Composer”. Se salvează un fișier .qasm. În Composer-ul IBM alegi File → Upload .qasm file.
+- O mașină reală: pui cheia IBM, instanța (CRN) și numele mașinii în IBM_QUANTUM_API_KEY, IBM_QUANTUM_CRN și IBM_QUANTUM_BACKEND (sau în ~/.config/cuantor/ibm.json), apoi rulezi `cuantor ibm run circuit.qasm --backend NUME`. Cheia nu iese din calculatorul tău decât spre IBM.
 
-> Neverificat pe hardware real: transpilatorul (porți native rz/sx/x + cx/cz/ecr, rutare SWAP) este verificat cu simulatorul propriu, iar clientul REST doar cu un server simulat. Detaliile cererilor pot cere ajustări; circuitele dinamice nu sunt suportate pe această cale.
+> Avertisment sincer: partea aceasta nu a fost încă încercată pe o mașină IBM reală, doar pe un server simulat și cu simulatorul încorporat. Pot fi necesare mici corecturi. Circuitele cu reset sau if nu pot fi trimise.
+
+> **ELI5 — pe scurt:** Îți poți trimite circuitul pe site-ul IBM sau pe o mașină IBM reală. Mașina reală încă n-am încercat-o.
 
 ## Calitate și audit
 
-Versiunea 0.2.1 a trecut printr-un audit adversarial: 59 de teste automate, inclusiv fuzzing al parserului, bombe de resurse (memorie, recursie, imbricare), unghiuri NaN, verificări încrucișate între cele trei motoare, teste chi-pătrat ale eșantionării, reproductibilitate pe sămânță și răspunsuri REST ostile. Auditul a găsit și a reparat 7 defecte (vezi jurnalul de modificări).
+Înainte de versiunea 0.2.1 am încercat din greu să stricăm programul: 59 de teste automate, date aruncate la întâmplare, circuite făcute să mănânce toată memoria, unghiuri imposibile, cele trei calculatoare verificate unul cu altul și răspunsuri IBM false care mint. Am găsit și reparat 7 greșeli (vezi jurnalul de modificări).
+
+> **ELI5 — pe scurt:** Am încercat din răsputeri să-l stricăm, am găsit 7 greșeli și le-am reparat.
 
 [Jurnal de modificări](CHANGELOG.ro.md)
 
 ## Descărcare
 
-Fișiere executabile pentru Windows, macOS (Apple silicon și Intel) și Linux sunt atașate fiecărei versiuni.
+Programe pentru Windows, macOS (cip Apple și Intel) și Linux sunt atașate fiecărei versiuni. Alege-o pe a ta mai jos.
+
+**[Ultima versiune](https://github.com/chiuta/CUANTOR/releases/latest)**
+
+- Windows · .zip
+- macOS · Apple · .tar.gz
+- macOS · Intel · .tar.gz
+- Linux · .tar.gz
+
+### Ghid de utilizare (PDF)
+
+Explicat ca pentru un copil de 10 ani, cu un rezumat mic pentru unul de 5 ani după fiecare capitol. Același ghid în 8 limbi.
+
+**[Descarcă ghidul (PDF)](guide/CUANTOR-guide.ro.pdf)** · Toate limbile: [Română](guide/CUANTOR-guide.ro.pdf) · [English](guide/CUANTOR-guide.en.pdf) · [Français](guide/CUANTOR-guide.fr.pdf) · [Deutsch](guide/CUANTOR-guide.de.pdf) · [Español](guide/CUANTOR-guide.es.pdf) · [Italiano](guide/CUANTOR-guide.it.pdf) · [Português](guide/CUANTOR-guide.pt.pdf) · [Magyar](guide/CUANTOR-guide.hu.pdf)
+
+> **ELI5 — pe scurt:** Alegi calculatorul tău, descarci, gata. Ghidul e un PDF.
 
 ## Licență
 
